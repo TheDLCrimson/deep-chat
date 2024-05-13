@@ -4,7 +4,7 @@ import { useContext, useState } from "react"
 import { TabContext } from "~Context/TabContext"
 
 const DefaultChat = () => {
-  const { currentTabInfo, initialTabInfo } = useContext(TabContext)
+  const { initialTabInfo } = useContext(TabContext)
 
   const [initialMessages, setInitialMessages] = useState([
     { role: "user", text: "Hey, how are you today?" },
