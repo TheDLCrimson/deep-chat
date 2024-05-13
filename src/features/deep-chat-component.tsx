@@ -1,47 +1,32 @@
-import { DeepChat } from "deep-chat-react"
-import { useState } from "react"
+import { useContext, useState } from "react"
+
+import COMP4010 from "~ChatModules/COMP4010"
+import COMP4050 from "~ChatModules/COMP4050"
+import { TabContext } from "~Context/TabContext"
+
+import BANA4020 from "../ChatModules/BANA4020"
+import DefaultChat from "../ChatModules/default-chat"
 
 const DeepChatComponent = () => {
-  const [initialMessages, setInitialMessages] = useState([
-    { role: "user", text: "Hey, how are you today?" },
-    { role: "ai", text: "I am doing very well!" }
-  ])
-  const [savedChats, setSavedChats] = useState([])
+  const { initialTabInfo } = useContext(TabContext)
 
-  const handleNewChat = () => {
-    setInitialMessages([])
+  var content
+
+  switch (initialTabInfo.url) {
+    case "https://vinuni.instructure.com/courses/1938":
+      content = <BANA4020 />
+      break
+    case "https://vinuni.instructure.com/courses/1980":
+      content = <COMP4050 />
+      break
+    case "https://vinuni.instructure.com/courses/1977":
+      content = <COMP4010 />
+      break
+    default:
+      content = <DefaultChat />
   }
 
-  const handleSaveChat = () => {
-    const chatElementRef = document.getElementById("chat-element")
-    setSavedChats([...savedChats, chatElementRef.getMessages()])
-  }
-
-  const handleLoadChat = (index) => {
-    if (index < savedChats.length) {
-      setInitialMessages(savedChats[index])
-    }
-  }
-
-  return (
-    <div className="App">
-      <h1>Deep Chat</h1>
-      <button onClick={handleNewChat}>New Chat</button>
-      <button onClick={handleSaveChat}>Save Chat</button>
-      {savedChats.map((_, index) => (
-        <button key={index} onClick={() => handleLoadChat(index)}>
-          Load Chat #{index + 1}
-        </button>
-      ))}
-      <DeepChat
-        id="chat-element"
-        demo={true}
-        style={{ borderRadius: "10px" }}
-        textInput={{ placeholder: { text: "Welcome to the demo!" } }}
-        initialMessages={initialMessages}
-      />
-    </div>
-  )
+  return <>{content}</>
 }
 
 export default DeepChatComponent

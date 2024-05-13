@@ -1,5 +1,6 @@
+import { TabProvider } from "~Context/TabContext"
 import DeepChatComponent from "~features/deep-chat-component"
-import CurrentTabInfo from "~features/get-tab-info"
+import TabInfoDisplay from "~features/get-tab-info"
 
 function IndexSidePanel() {
   return (
@@ -10,8 +11,10 @@ function IndexSidePanel() {
         padding: 10,
         alignItems: "center"
       }}>
-      <DeepChatComponent />
-      <CurrentTabInfo />
+      <TabProvider>
+        <DeepChatComponent />
+        <TabInfoDisplay />
+      </TabProvider>
     </div>
   )
 }

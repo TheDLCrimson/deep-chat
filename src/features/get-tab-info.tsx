@@ -1,24 +1,26 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 
-const CurrentTabInfo = () => {
-  const [tabInfo, setTabInfo] = useState({ title: "", url: "" })
+import { TabContext } from "~Context/TabContext"
 
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    if (tabs.length === 0) return
-    const { title, url } = tabs[0]
-    setTabInfo({ title, url })
-  })
+const TabInfoDisplay = () => {
+  const { currentTabInfo, initialTabInfo } = useContext(TabContext)
 
   return (
     <div className="plasmo-flex plasmo-flex-row plasmo-items-center">
       <p>
-        Current Tab Title: <b>{tabInfo.title}</b>
+        Current Tab Title: <b>{currentTabInfo.title}</b>
       </p>
       <p>
-        Current Tab URL: <b>{tabInfo.url}</b>
+        Current Tab URL: <b>{currentTabInfo.url}</b>
+      </p>
+      <p>
+        Initial Tab Title: <b>{initialTabInfo.title}</b>
+      </p>
+      <p>
+        Initial Tab URL: <b>{initialTabInfo.url}</b>
       </p>
     </div>
   )
 }
 
-export default CurrentTabInfo
+export default TabInfoDisplay
