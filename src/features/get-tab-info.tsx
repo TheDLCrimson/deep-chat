@@ -1,20 +1,11 @@
 import React, { useContext, useState } from "react"
 
-import { TabContext } from "~Context/TabContext"
+import { CurrentTabContext } from "~Context/CurrentTabContext"
+import { InitTabContext } from "~Context/InitTabContext"
 
 const TabInfoDisplay = () => {
-  const { initialTabInfo } = useContext(TabContext)
-
-  const [currentTabInfo, setCurrentTabInfo] = useState({
-    title: "Untitled Chat",
-    url: ""
-  })
-
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    if (tabs.length === 0) return
-    const { title, url } = tabs[0]
-    setCurrentTabInfo({ title, url })
-  })
+  const { initialTabInfo } = useContext(InitTabContext)
+  const { currentTabInfo } = useContext(CurrentTabContext)
 
   return (
     <div className="plasmo-flex plasmo-flex-row plasmo-items-center">

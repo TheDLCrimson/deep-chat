@@ -1,10 +1,10 @@
-import { createContext, useEffect, useRef, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
-export const TabContext = createContext({
+export const InitTabContext = createContext({
   initialTabInfo: { title: "", url: "" }
 })
 
-export const TabProvider = ({ children }) => {
+export const InitTabProvider = ({ children }) => {
   const [initialTabInfo, setInitialTabInfo] = useState({
     title: "Untitled Chat",
     url: ""
@@ -17,9 +17,10 @@ export const TabProvider = ({ children }) => {
       setInitialTabInfo({ title, url })
     })
   }, [])
+
   return (
-    <TabContext.Provider value={{ initialTabInfo }}>
+    <InitTabContext.Provider value={{ initialTabInfo }}>
       {children}
-    </TabContext.Provider>
+    </InitTabContext.Provider>
   )
 }

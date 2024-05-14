@@ -1,32 +1,14 @@
 import { DeepChat } from "deep-chat-react"
 import { useContext, useState } from "react"
+import { ChatContext } from "~Context/ChatContext"
 
-import { TabContext } from "~Context/TabContext"
+import { InitTabContext } from "~Context/InitTabContext"
 
 const COMP4010 = () => {
-  const { currentTabInfo, initialTabInfo } = useContext(TabContext)
+  const { initialTabInfo } = useContext(InitTabContext)
 
-  const [initialMessages, setInitialMessages] = useState([
-    {
-      role: "ai",
-      text: "Welcome to COMP4010 Data Visualization"
-    },
-    { role: "ai", text: "You can ask me any question related to the course <3" }
-  ])
-
-  const [savedChats, setSavedChats] = useState([])
-
-  const handleSaveChat = () => {
-    const chatElementRef = document.getElementById("chat-element")
-    setSavedChats([...savedChats, chatElementRef.getMessages()])
-    setInitialMessages([])
-  }
-
-  const handleLoadChat = (index) => {
-    if (index < savedChats.length) {
-      setInitialMessages(savedChats[index])
-    }
-  }
+  const { messages, savedChats, handleSaveChat, handleLoadChat } =
+    useContext(ChatContext)
 
   return (
     <div className="App">
@@ -42,7 +24,7 @@ const COMP4010 = () => {
         demo={true}
         style={{ borderRadius: "10px" }}
         textInput={{ placeholder: { text: "Welcome to the demo!" } }}
-        initialMessages={initialMessages}
+        initialMessages={messages}
       />
     </div>
   )

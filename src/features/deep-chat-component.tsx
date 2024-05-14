@@ -1,14 +1,14 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 
 import COMP4010 from "~ChatModules/COMP4010"
 import COMP4050 from "~ChatModules/COMP4050"
-import { TabContext } from "~Context/TabContext"
+import { InitTabContext } from "~Context/InitTabContext"
 
 import BANA4020 from "../ChatModules/BANA4020"
 import DefaultChat from "../ChatModules/default-chat"
 
 const DeepChatComponent = () => {
-  const { initialTabInfo } = useContext(TabContext)
+  const { initialTabInfo } = useContext(InitTabContext)
 
   var content
 
