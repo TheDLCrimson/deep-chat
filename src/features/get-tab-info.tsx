@@ -6,6 +6,7 @@ import { InitTabContext } from "~Context/InitTabContext"
 const TabInfoDisplay = () => {
   const { initialTabInfo } = useContext(InitTabContext)
   const { currentTabInfo } = useContext(CurrentTabContext)
+  console.log(currentTabInfo)
 
   return (
     <div className="plasmo-flex plasmo-flex-row plasmo-items-center">

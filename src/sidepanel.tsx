@@ -14,11 +14,11 @@ function IndexSidePanel() {
         alignItems: "center"
       }}>
       <InitTabProvider>
-        <ChatProvider>
-        <DeepChatComponent />
-        </ChatProvider>
         <CurrentTabProvider>
-          <TabInfoDisplay />
+          <ChatProvider>
+            <DeepChatComponent />
+            <TabInfoDisplay />
+          </ChatProvider>
         </CurrentTabProvider>
       </InitTabProvider>
     </div>

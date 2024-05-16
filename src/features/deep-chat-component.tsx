@@ -1,32 +1,43 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 
 import COMP4010 from "~ChatModules/COMP4010"
 import COMP4050 from "~ChatModules/COMP4050"
-import { InitTabContext } from "~Context/InitTabContext"
+import { CurrentTabContext } from "~Context/CurrentTabContext"
 
 import BANA4020 from "../ChatModules/BANA4020"
 import DefaultChat from "../ChatModules/default-chat"
 
 const DeepChatComponent = () => {
-  const { initialTabInfo } = useContext(InitTabContext)
+  const { currentTabInfo } = useContext(CurrentTabContext)
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const chatModel = [<BANA4020 />, <COMP4050 />, <COMP4010 />, <DefaultChat />]
 
-  var content
+  useEffect(() => {
+    const urls = [
+      "https://vinuni.instructure.com/courses/1938",
+      "https://vinuni.instructure.com/courses/1980",
+      "https://vinuni.instructure.com/courses/1977"
+    ]
+    const index = urls.indexOf(currentTabInfo.url)
+    setActiveIndex(index >= 0 ? index : 3)
+  }, [currentTabInfo.url])
 
-  switch (initialTabInfo.url) {
-    case "https://vinuni.instructure.com/courses/1938":
-      content = <BANA4020 />
-      break
-    case "https://vinuni.instructure.com/courses/1980":
-      content = <COMP4050 />
-      break
-    case "https://vinuni.instructure.com/courses/1977":
-      content = <COMP4010 />
-      break
-    default:
-      content = <DefaultChat />
-  }
-
-  return <>{content}</>
+  return (
+    <div style={{ position: "relative" }}>
+      {chatModel.map((ChatComponent, index) => (
+        <div
+          key={index}
+          style={{
+            display: activeIndex === index ? "block" : "none",
+            position: activeIndex === index ? "relative" : "absolute",
+            width: "100%",
+            height: "100%"
+          }}>
+          {ChatComponent}
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default DeepChatComponent

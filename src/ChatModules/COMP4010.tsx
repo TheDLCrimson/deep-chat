@@ -12,7 +12,7 @@ const COMP4010 = () => {
 
   return (
     <div className="App">
-      <h1>Deep Chat</h1>
+      <h1>Deep Chat for COMP4010 Data Visualization</h1>
       <button onClick={handleSaveChat}>Save Chat</button>
       {savedChats.map((_, index) => (
         <button key={index} onClick={() => handleLoadChat(index)}>
@@ -22,7 +22,17 @@ const COMP4010 = () => {
       <DeepChat
         id="chat-element"
         demo={true}
-        style={{ borderRadius: "10px" }}
+        style={{
+          borderRadius: "10px",
+          width: "80vw",
+          height: "calc(100vh - 70px)",
+          fontSize: "1.37rem",
+          paddingTop: "10px"
+        }}
+        messageStyles={{
+          default: { shared: { innerContainer: { fontSize: "1rem" } } }
+        }}
+        inputAreaStyle={{ fontSize: "1rem" }}
         textInput={{ placeholder: { text: "Welcome to the demo!" } }}
         initialMessages={messages}
       />
